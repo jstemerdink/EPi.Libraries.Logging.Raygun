@@ -1,0 +1,21 @@
+<?xml version="1.0"?>
+<package >
+  <metadata>
+    <id>$id$</id>
+    <version>$version$</version>
+    <title>$title$</title>
+    <authors>$author$</authors>
+    <owners>$author$</owners>
+    <projectUrl>https://github.com/jstemerdink/EPi.Libraries.Logging.Raygun/</projectUrl>
+    <iconUrl>http://jstemerdink.net/images/js-nuget.png</iconUrl>
+    <requireLicenseAcceptance>false</requireLicenseAcceptance>
+    <description>$description$</description>
+    <releaseNotes></releaseNotes>
+    <copyright>Copyright © Jeroen Stemerdink 2016</copyright>
+    <tags>logging Raygun</tags>
+    <dependencies>
+      <dependency id="EPiServer.Framework" version="[9.0.3, 10.0)" />
+      <dependency id="Mindscape.Raygun4Net.Mvc" version="5.3.1" />
+    </dependencies>
+  </metadata>
+</package>
