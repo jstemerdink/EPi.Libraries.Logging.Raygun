@@ -1,0 +1,29 @@
+version: 1.0.{build}
+image: Visual Studio 2013
+configuration: Release
+install:
+- choco install gitversion.portable -pre -y
+- cmd: nuget sources add -Name EPiServerFeed -Source http://nuget.episerver.com/feed/packages.svc/
+before_build:
+- cmd: nuget restore
+- ps: gitversion /l console /output buildserver /updateAssemblyInfo
+build:
+  project: EPi.Libraries.Logging.Raygun.sln
+  verbosity: normal
+after_build:
+- cmd: ECHO nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+- cmd: nuget pack <Project>\<NuSpec>.nuspec -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
+- cmd: appveyor PushArtifact "<NuSpec>.%GitVersion_NuGetVersion%.nupkg"
+before_package:
+- ps: >-
+    Write-Host -NoNewline "Installing NuGet 3.3.0..."
+
+    if (Test-Path 'C:\Tools\NuGet3') { $nugetDir = 'C:\Tools\NuGet3' } else { $nugetDir = 'C:\Tools\NuGet' }
+deploy:
+- provider: NuGet
+  server: https://www.myget.org/F/epi-libraries/api/v2/package
+  api_key:
+    secure: 9Z+KYPk2hI7hg9kYLv/N13fvoqcYCP96isNUkRrKu0v87cw85H62oe/DCwpqvBXF
+  skip_symbols: true
+  on:
+    branch: develop

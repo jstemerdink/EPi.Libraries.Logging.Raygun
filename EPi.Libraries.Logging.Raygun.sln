@@ -7,6 +7,7 @@ Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "EPi.Libraries.Logging.Raygu
 EndProject
 Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Files", "Solution Files", "{F99585BF-EB7E-4A60-A0E0-7DF75A589CDC}"
 	ProjectSection(SolutionItems) = preProject
+		appveyor.yml = appveyor.yml
 		README.md = README.md
 	EndProjectSection
 EndProject
