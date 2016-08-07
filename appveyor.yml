@@ -11,9 +11,9 @@ build:
   project: EPi.Libraries.Logging.Raygun.sln
   verbosity: normal
 after_build:
-- cmd: ECHO nuget pack EPi.Libraries.Logging.Raygun\EPi.Libraries.Logging.Raygun.csproj -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 - cmd: nuget pack EPi.Libraries.Logging.Raygun\EPi.Libraries.Logging.Raygun.csproj -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 - cmd: appveyor PushArtifact "EPi.Libraries.Logging.Raygun.%GitVersion_NuGetVersion%.nupkg"
+- 7z a EPi.Libraries.Logging.Raygun.zip %APPVEYOR_BUILD_FOLDER%\EPi.Libraries.Logging.Raygun\bin\$(configuration)\EPi.Libraries.Logging.Raygun.dll
 before_package:
 - ps: >-
     Write-Host -NoNewline "Installing NuGet 3.3.0..."
