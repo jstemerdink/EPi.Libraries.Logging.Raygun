@@ -13,8 +13,8 @@ build:
 after_build:
 - cmd: nuget pack EPi.Libraries.Logging.Raygun\EPi.Libraries.Logging.Raygun.csproj -version "%GitVersion_NuGetVersion%" -prop "target=%CONFIGURATION%"
 - cmd: appveyor PushArtifact "EPi.Libraries.Logging.Raygun.%GitVersion_NuGetVersion%.nupkg"
-- 7z a EPi.Libraries.Logging.Raygun.zip %APPVEYOR_BUILD_FOLDER%\EPi.Libraries.Logging.Raygun\bin\Release\EPi.Libraries.Logging.Raygun.dll
-- cmd: appveyor PushArtifact "EPi.Libraries.Logging.Raygun.zip"
+- 7z a EPi.Libraries.Logging.Raygun.%GitVersion_NuGetVersion%.zip %APPVEYOR_BUILD_FOLDER%\EPi.Libraries.Logging.Raygun\bin\Release\EPi.Libraries.Logging.Raygun.dll
+- cmd: appveyor PushArtifact "EPi.Libraries.Logging.Raygun.%GitVersion_NuGetVersion%.zip"
 before_package:
 - ps: >-
     Write-Host -NoNewline "Installing NuGet 3.3.0..."
@@ -26,5 +26,13 @@ deploy:
   api_key:
     secure: 9Z+KYPk2hI7hg9kYLv/N13fvoqcYCP96isNUkRrKu0v87cw85H62oe/DCwpqvBXF
   skip_symbols: true
+  artifact: /.*\.nupkg/
   on:
     branch: develop
+- provider: GitHub
+  auth_token:
+    secure: TaDEavUfTj6EgwcO7y5njQVS5Z9bBU/fVFuSApo5XEO6FSBT5UzJQmyJjbhIFDZb
+  artifact: /.*\.zip/
+  on:
+    branch: master
+    appveyor_repo_tag: true
